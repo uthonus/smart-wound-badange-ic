@@ -48,7 +48,8 @@ smart-wound-bandage-ic/
 └── docs/
     ├── theory-curriculum.md                   # Giáo trình lý thuyết 8 module (từ sinh học da đến mạch & NFC)
     ├── wound-bioelectricity-mechanism.md      # Giải thích cơ chế điện sinh học của vết thương
-    └── research-novelty-and-positioning.md    # Phân tích khoảng trống nghiên cứu & hướng điểm mới
+    ├── research-novelty-and-positioning.md    # Phân tích khoảng trống nghiên cứu & hướng điểm mới
+    └── nckh-timeline-6-8-months.md            # Kế hoạch thực hiện 6-8 tháng làm sản phẩm nộp NCKH
 ```
 
 ---
