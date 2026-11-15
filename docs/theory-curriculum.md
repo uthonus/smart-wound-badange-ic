@@ -1,199 +1,223 @@
-# Lý thuyết cần học: Băng dán vết thương thông minh dùng vi dòng
-*Lộ trình cho sinh viên thiết kế vi mạch năm 2 (HCMUT), nền sinh học gần như bằng 0*
+# Giáo Trình Lý Thuyết Trọng Tâm: Băng Dán Vết Thương Thông Minh Dùng Vi Dòng
+*Biên soạn riêng cho nhóm NCKH HCMUT (11/2026 – 05/2027): **Hậu** (Vi mạch) – **Thành** (Vi mạch + Giải QG Sinh học) – **Khang** (IoT)*
 
-> **Cách dùng tài liệu này:** học theo thứ tự các module. Mỗi module có phần **"Cần hiểu"**, **tài liệu** và **câu hỏi tự kiểm tra**. Nếu trả lời được các câu hỏi thì chuyển sang module tiếp theo. Ký hiệu ⭐ là bắt buộc, ☆ là nâng cao, có thể học sau.
+---
 
-## Bản đồ kiến thức
+## 1. Cách Học Nhóm Để Tiết Kiệm Thời Gian Nhất (16/11/2026 – 30/05/2027)
+
+Thay vì cả 3 người đều phải tự mò mọi thứ từ con số 0, giáo trình này chia thành **7 Module bắt buộc cho NCKH (M0 → M6)** và **1 Module mở rộng sau NCKH (M7 — Thiết kế IC mức transistor cho năm 3–4)**:
 
 ```mermaid
 flowchart TD
-    M0["M0. Nền tảng toán - mạch"] --> M3["M3. Điện hóa điện cực"]
-    M1["M1. Sinh học da & lành vết thương"] --> M2["M2. Điện trường nội sinh & kích thích điện"]
-    M2 --> M3
-    M3 --> M4["M4. Trở kháng sinh học"]
-    M3 --> M5["M5. Mạch kích thích dòng"]
-    M4 --> M6["M6. IC analog công suất thấp + NFC"]
+    M0["M0. Toán mạch RC, Số phức & Đồ thị Nyquist\n(Cả nhóm - Tuần 1)"] --> M1["M1. Sinh học da & 4 giai đoạn lành vết thương\n(Thành dẫn dắt - Tuần 1-2)"]
+    M1 --> M2["M2. Pin da (TEP), Electrotaxis & Bài báo Stanford 2023\n(Cả nhóm - Tuần 3-6)"]
+    M2 --> M3["M3. Điện hóa điện cực, Mô hình Randles & Gel Phantom\n(Thành chủ trì - Tuần 7-12)"]
+    M2 --> M4["M4. Trở kháng sinh học (Cole), Mạch AFE & Giải điều chế I/Q\n(Khang + Thành chủ trì - Tuần 7-13)"]
+    M2 --> M5["M5. Nguồn dòng 2 pha VCCS, Cầu H 12V & Cân bằng điện tích\n(Hậu chủ trì - Tuần 7-13)"]
+    M3 --> M6["M6. Điều khiển vòng kín giữ ổn định điện trường, PCB & An toàn IEC 60601\n(Tích hợp cả nhóm - Tuần 14-26)"]
+    M4 --> M6
     M5 --> M6
-    M6 --> M7["M7. An toàn, tiêu chuẩn & phương pháp nghiên cứu"]
+    M6 -.->|"Mở rộng Năm 3-4\n(Sau tháng 05/2027)"| M7["M7 (Tùy chọn). Thiết kế khối Nguồn dòng / AFE trên CMOS SKY130"]
 ```
 
-| Module | Thời lượng gợi ý | Liên quan môn học ở trường |
+### Phân vai học tập trong nhóm
+
+| Module | Ai đi sâu (Chủ trì giảng lại 15 phút) | Ai học nắm nguyên lý (Để ghép hệ thống) | Môn học liên quan tại HCMUT |
+| :--- | :--- | :--- | :--- |
+| **M0. Nền tảng mạch RC & Phức** | **Hậu & Thành** | **Khang** | Giải tích mạch, Tín hiệu & Hệ thống |
+| **M1. Sinh học da & Vết thương** | **Thành** *(Giải QG Sinh học)* | **Hậu, Khang** *(chỉ học bản dịch sang mạch điện)* | Tự học có hướng dẫn của Thành |
+| **M2. Pin da & Electrotaxis** | **Thành** (cơ chế) + **Hậu/Khang** (tính $E, J$) | Cả 3 cùng nắm chắc để bảo vệ đề cương | Vật lý điện từ + Sinh lý học |
+| **M3. Điện hóa & Gel Phantom** | **Thành** | **Hậu** (để chọn tụ chặn DC), **Khang** (để hiểu ngưỡng lỗi) | Hóa đại cương + Vật liệu điện tử |
+| **M4. Đo trở kháng & Thuật toán I/Q** | **Khang** (code I/Q) + **Thành** (mạch `INA826`) | **Hậu** (để phối hợp đóng/ngắt cầu H khi đo) | Xử lý tín hiệu số, Đo lường điện tử |
+| **M5. Nguồn dòng 2 pha & Bảo vệ** | **Hậu** | **Thành** (kiểm tra chéo), **Khang** (điều khiển DAC/GPIO) | Mạch điện tử, Vi mạch tương tự |
+| **M6. Vòng kín, PCB, NFC & An toàn** | **Hậu** (PCB) + **Khang** (Vòng kín/IoT) + **Thành** (An toàn/Phantom) | Cả 3 cùng tích hợp | Thiết kế hệ thống nhúng & PCB |
+
+---
+
+## M0. Nền Tảng Toán & Mạch Điện Cho Mô Hình Sinh Học ⭐ *(Tuần 1)*
+> **Mục tiêu:** Đảm bảo Hậu, Thành, Khang nói chung một ngôn ngữ về số phức, đáp ứng xung RC và giản đồ Nyquist trước khi ghép với sinh học.
+
+### 0.1. Kiến thức cốt lõi cần nắm
+1. **Trở kháng phức và góc pha:**
+   - Mọi mô sinh học và điện cực đều vừa cản dòng (điện trở $R$), vừa tích điện như tụ ($C$).
+   - Tại tần số góc $\omega = 2\pi f$, dung kháng của tụ là $Z_C = \frac{1}{j\omega C} = -\frac{j}{\omega C}$.
+   - Trở kháng tổng quát:
+     $$Z(\omega) = R(\omega) + j X(\omega), \qquad |Z| = \sqrt{R^2 + X^2}, \qquad \phi = \arctan\left(\frac{X}{R}\right)$$
+   - Vì mô sinh học mang tính dung kháng ($X < 0$), người ta thường vẽ **giản đồ Nyquist** với trục hoành là phần thực $R$ và trục tung là **đối của phần ảo ($-X$)** để đồ thị nằm ở góc phần tư thứ nhất (hình bán nguyệt).
+
+2. **Mạch $R_s$ nối tiếp với $(R_p \parallel C_p)$ — Khung xương của cả đề tài:**
+   $$Z(\omega) = R_s + \frac{R_p}{1 + j\omega R_p C_p} = \left( R_s + \frac{R_p}{1 + (\omega\tau)^2} \right) - j \left( \frac{\omega R_p^2 C_p}{1 + (\omega\tau)^2} \right), \quad \text{với } \tau = R_p C_p$$
+   - Khi tần số rất thấp ($f \to 0$, dòng DC): tụ $C_p$ hở mạch $\Rightarrow Z(0) = R_s + R_p$ (trở kháng rất lớn).
+   - Khi tần số rất cao ($f \to \infty$): tụ $C_p$ nối tắt $R_p \Rightarrow Z(\infty) = R_s$ (chỉ còn điện trở dung dịch/mô sâu).
+   - Tại **tần số đặc trưng** $f_c = \frac{1}{2\pi R_p C_p}$ (tức $\omega\tau = 1$): phần ảo đạt đỉnh cực đại $|-X|_{\max} = \frac{R_p}{2}$, và phần thực đúng bằng $R_s + \frac{R_p}{2}$.
+
+3. **Đáp ứng của tụ khi bơm dòng không đổi (Constant Current):**
+   - Khác với nguồn áp ($V$ nhảy bậc ngay lập tức), khi bơm một xung dòng không đổi $I_{\text{stim}}$ vào tụ $C$ trong thời gian $T_{\text{pulse}}$, điện áp trên tụ tăng tuyến tính:
+     $$\Delta V_C = \frac{I_{\text{stim}} \cdot T_{\text{pulse}}}{C}$$
+   - Công thức này dùng trực tiếp để **Hậu** tính giá trị tụ chặn DC ($C_{\text{block}} = 4.7\,\mu\text{F}$) và tính điện áp tích tụ trên lớp điện kép của điện cực.
+
+### 0.2. Câu hỏi tự kiểm tra M0 (Kèm đáp số để tự đối chiếu)
+1. Cho tải giả `Load-2` gồm $R_s = 1.0\,\text{k}\Omega$ nối tiếp với $(R_p = 10.0\,\text{k}\Omega \parallel C_p = 47\,\text{nF})$. Tính tần số đỉnh $f_c$ của nửa đường tròn Nyquist và tổng trở $|Z|$ tại $f = 1\,\text{kHz}$.
+   - *Đáp số:* $f_c = \frac{1}{2\pi \cdot 10^4 \cdot 47\times 10^{-9}} \approx 338.6\,\text{Hz}$; tại $1\,\text{kHz}$, $|Z| \approx 4.10\,\text{k}\Omega$.
+2. Bơm xung dòng $I = 200\,\mu\text{A}$ có độ rộng $T_{\text{pulse}} = 5\,\text{ms}$ qua tụ chặn $C_{\text{block}} = 4.7\,\mu\text{F}$. Điện áp rơi thêm trên tụ chặn sau 1 pha xung là bao nhiêu?
+   - *Đáp số:* $\Delta V = \frac{200\times 10^{-6} \times 5\times 10^{-3}}{4.7\times 10^{-6}} \approx 0.213\,\text{V}$ (rất nhỏ so với nguồn $12\,\text{V}$, chứng tỏ chọn $4.7\,\mu\text{F}$ là hợp lý).
+
+---
+
+## M1. Sinh Học Da & Quá Trình Lành Vết Thương (Dịch Sang Ngôn Ngữ Kỹ Thuật) ⭐ *(Tuần 1–2)*
+> **Phụ trách chính:** **Thành** giảng tóm tắt cho **Hậu** và **Khang** trong buổi họp Tuần 1 & Tuần 2.
+
+### 1.1. Bảng ánh xạ Sinh học $\leftrightarrow$ Kỹ thuật điện
+
+| Thành phần sinh học | Bản chất sinh lý | Tương đương trong mạch điện của nhóm |
 | :--- | :--- | :--- |
-| M0 Nền tảng | Đang học | Mạch điện, Tín hiệu & Hệ thống, Điện tử |
-| M1 Sinh học | 2–3 tuần | (tự học) |
-| M2 Điện sinh học vết thương | 2 tuần | (tự học) |
-| M3 Điện hóa | 2–3 tuần | Hóa đại cương (ôn lại) |
-| M4 Trở kháng sinh học | 3 tuần | Mạch điện (số phức), Xử lý tín hiệu số |
-| M5 Mạch kích thích | 3–4 tuần | Điện tử, Mạch tương tự |
-| M6 IC + NFC | Năm 3 | Vi mạch tương tự, CMOS VLSI, Thiết kế số |
-| M7 An toàn & nghiên cứu | Học song song | Xác suất thống kê |
+| **Lớp sừng (Stratum corneum)** | Lớp ngoài cùng của biểu bì ($10-20\,\mu\text{m}$), gồm tế bào chết chứa keratin khô | **Điện trở cách điện cực lớn** ($R_{\text{sc}} \sim 10\,\text{k}\Omega - 100\,\text{k}\Omega\,\text{cm}^2$) song song tụ nhỏ |
+| **Biểu bì sống & Trung bì** | Chứa dịch mô kẽ giàu ion $\text{Na}^+, \text{Cl}^-, \text{K}^+$ và mạch máu | **Môi trường dẫn điện thể tích** có điện trở thấp hơn nhiều ($R_s \sim 200\,\Omega - 1.5\,\text{k}\Omega$) |
+| **Màng tế bào (Lipid bilayer)** | Lớp phospholipid kép dày $\sim 5\,\text{nm}$ ngăn dịch nội bào và ngoại bào | **Tụ điện màng** $C_m \approx 1\,\mu\text{F/cm}^2$ |
+| **Kênh ion & Bơm $\text{Na}^+/\text{K}^+$-ATPase** | Protein vận chuyển ion tạo chênh lệch nồng độ hai bên màng | **Nguồn áp một chiều nội sinh** (điện thế nghỉ màng $V_m \approx -70\,\text{mV}$) |
+
+### 1.2. Bốn giai đoạn lành vết thương và sự biến thiên trở kháng $Z$
+1. **Cầm máu (Hemostasis — vài phút đến vài giờ):** Co mạch, tiểu cầu kết tập và tạo mạng sợi fibrin.
+2. **Viêm (Inflammation — ngày 1 đến ngày 6):** Bạch cầu trung tính và đại thực bào (macrophage) tiến vào dọn vi khuẩn, tiết nhiều dịch rỉ viêm (exudate) giàu ion $\Rightarrow$ **Độ dẫn điện $\sigma$ cao, trở kháng vết thương $Z$ thấp nhất** ($\sim 1.5 - 2.5\,\text{k}\Omega$, ứng với `Gel-1`).
+3. **Tăng sinh (Proliferation — ngày 4 đến ngày 21):**
+   - Nguyên bào sợi (**fibroblast**) tăng sinh và tổng hợp khung collagen (mô hạt — granulation tissue, ứng với `Gel-2`).
+   - Tế bào nội mô tạo mạch máu mới (**angiogenesis**).
+   - Tế bào sừng (**keratinocyte**) ở mép vết thương bò vào phủ kín bề mặt (**tái biểu mô hóa — re-epithelialization**, ứng với `Gel-3`) $\Rightarrow$ **Trở kháng $Z$ tăng dần lên $5 - 15\,\text{k}\Omega$**.
+4. **Tái cấu trúc (Remodeling — vài tuần đến 1 năm):** Lớp sừng phục hồi hoàn toàn, bề mặt khô $\Rightarrow$ **Trở kháng $Z$ quay về mức da lành ($> 20\,\text{k}\Omega$, ứng với `Gel-4`)**.
+
+> **Tại sao vết thương mạn tính (loét tiểu đường, loét tì đè) không lành?**  
+> Do thiếu máu cục bộ, đường huyết cao làm rối loạn chức năng bạch cầu, hiện tượng màng sinh học vi khuẩn (biofilm) và suy giảm tín hiệu điện dẫn đường làm vết thương **bị kẹt vĩnh viễn ở Giai đoạn 2 (Viêm)**.
+
+### 1.3. Câu hỏi tự kiểm tra M1
+1. Tại sao khi vết thương đang lành tốt (chuyển từ pha viêm sang tái biểu mô hóa), trở kháng đo được giữa 2 điện cực lại **tăng lên** chứ không giảm đi?
+2. Loại tế bào nào đóng vai trò chính trong việc bò ngang qua bề mặt vết thương để "đóng nắp" lớp biểu bì? (*Đáp số:* Keratinocyte — tế bào sừng).
 
 ---
 
-## M0. Nền tảng toán & mạch ⭐ (phần lớn đang học)
-**Cần hiểu:**
-- **Số phức và trở kháng**: $Z = R + jX$, biên độ và pha, giản đồ Bode, **giản đồ Nyquist** (dùng rất nhiều ở M3 và M4).
-- **Mạch RC**: hằng số thời gian $\tau = RC$, đáp ứng xung vuông. Da và điện cực về bản chất là mạng RC.
-- **Biến đổi Fourier / Laplace**: để hiểu đo trở kháng ở nhiều tần số.
-- **Op-amp và MOSFET**: hồi tiếp âm, vùng bão hòa, gương dòng.
+## M2. Điện Trường Nội Sinh ("Pin Da"), Electrotaxis & Bài Báo Stanford 2023 ⭐ *(Tuần 3–6)*
+> **Mục tiêu:** Hiểu tận gốc cơ sở khoa học được công bố trên tạp chí *Nature* (2006) và *Nature Biotechnology* (2023) để bảo vệ đề cương trước Giảng viên hướng dẫn ở **Mốc 1**.
 
-**Tự kiểm tra:**
-1. Vẽ giản đồ Nyquist của mạch $R_1$ nối tiếp với $(R_2 \parallel C)$. Tại sao nó có hình bán nguyệt?
-2. Cho xung dòng $100\,\mu\text{A}$, độ rộng $1\,\text{ms}$ đi vào tụ $1\,\mu\text{F}$. Điện áp trên tụ tăng bao nhiêu?
+### 2.1. Cơ chế "Pin da" (Transepithelial Potential — TEP) và Điện trường vết thương
+- Ở vùng da lành xung quanh vết thương, các tế bào biểu bì liên kết chặt với nhau (tight junctions) và bơm chủ động $\text{Na}^+$ từ ngoài vào trong (và $\text{Cl}^-$ ra ngoài), duy trì một hiệu điện thế xuyên biểu bì **$\text{TEP} \approx 20 - 50\,\text{mV}$** (bên trong dương hơn so với bề mặt ngoài da).
+- Khi da bị rách, điện trở lớp biểu bì tại tâm vết thương sụt về $\approx 0$ ("chập mạch"). Dòng ion nội sinh lập tức chảy dưới lớp biểu bì hướng về phía vết thương và thoát ra ngoài tại tâm vết thương:
+  - Tạo ra **điện trường ngang nội sinh (Endogenous Lateral Electric Field)** dọc theo mép vết thương hướng về tâm vết thương (tâm vết thương mang cực **Âm — Cathode** so với vùng da lành xung quanh).
+  - Độ lớn điện trường đo được trên thực nghiệm: **$E_{\text{endo}} \approx 100 - 200\,\text{mV/mm}$** (tương đương $1 - 2\,\text{V/cm}$).
 
----
+### 2.2. Cơ chế phân tử của Electrotaxis (Thành trình bày trong Chương 1 báo cáo)
+Theo công trình kinh điển của **Zhao et al. (*Nature*, 2006)**:
+- Điện trường ngang $100 - 200\,\text{mV/mm}$ làm dịch chuyển (điện di trên màng) các thụ thể yếu tố tăng trưởng (như EGFR) và integrin về phía mép tế bào hướng về cực âm (Cathode).
+- Sự tập trung thụ thể này kích hoạt bất đối xứng đường truyền tín hiệu nội bào:
+  - Phía trước tế bào (hướng Cathode): hoạt hóa mạnh enzyme **$\text{PI3K}\gamma$ (Phosphoinositide 3-kinase)** $\to$ tăng $\text{PIP}_3$ $\to$ thúc đẩy trùng hợp sợi **F-actin** tạo chân giả (lamellipodia) kéo tế bào tiến về tâm vết thương.
+  - Phía sau tế bào (hướng Anode): enzyme **PTEN** phân giải $\text{PIP}_3$, giữ cho tế bào phân cực rõ rệt một chiều.
 
-## M1. Sinh học da và quá trình lành vết thương ⭐
-**Cần hiểu:**
-- **Cấu trúc da**: biểu bì (epidermis), trong đó lớp sừng ngoài cùng có trở kháng rất cao; trung bì (dermis); mô dưới da. Các tế bào chính: **keratinocyte** (tế bào sừng), **fibroblast** (nguyên bào sợi), đại thực bào, tế bào nội mô mạch máu.
-- **4 giai đoạn lành vết thương**:
-  1. **Cầm máu** (vài phút đến vài giờ): tiểu cầu kết lại, hình thành cục máu đông.
-  2. **Viêm** (1–6 ngày): bạch cầu và đại thực bào dọn vi khuẩn, mô chết.
-  3. **Tăng sinh** (4–21 ngày): fibroblast tạo collagen, mạch máu mới mọc, keratinocyte bò vào phủ kín vết thương (tái biểu mô hóa).
-  4. **Tái cấu trúc** (vài tuần đến 1 năm): collagen sắp xếp lại, hình thành sẹo.
-- **Vết thương mạn tính** (loét do tiểu đường, loét tì đè, loét do suy tĩnh mạch): **bị "kẹt" ở giai đoạn viêm**, do tuần hoàn kém, nhiễm khuẩn hoặc màng sinh học vi khuẩn (biofilm), thiếu oxy.
-- **Dấu hiệu nhiễm trùng đo được**: nhiệt độ tăng, pH thay đổi, dịch tiết nhiều, **trở kháng thay đổi**. Đây chính là những thứ băng dán thông minh cần đo.
+### 2.3. Định luật Ohm trong mô và Lý do ra đời thuật toán của nhóm
+Mật độ dòng điện $J$ ($\text{A/m}^2$) và cường độ điện trường $E$ ($\text{V/m}$ hay $\text{mV/mm}$) trong mô dẫn có độ dẫn điện $\sigma$ ($\text{S/m}$, hay điện trở suất $\rho = 1/\sigma$) liên hệ bởi:
+$$E = \rho \cdot J = \frac{I_{\text{stim}}}{\sigma \cdot S_{\text{eff}}} \propto I_{\text{stim}} \cdot R_{\text{wound}}$$
+- **Điểm yếu của các mạch kích thích truyền thống:** Giữ $I_{\text{stim}} = \text{hằng số}$. Khi $R_{\text{wound}}$ tăng gấp 10 lần (từ `Gel-1` sang `Gel-4`), điện trường $E$ cũng vọt lên gấp 10 lần!
+- **Điểm mới của nhóm (Hậu – Thành – Khang):** Đo $R_{\text{wound}}$ theo thời gian thực để điều chỉnh $I_{\text{stim}} \propto \frac{1}{R_{\text{wound}}}$, giữ cho tích số $E \propto I_{\text{stim}} \cdot R_{\text{wound}}$ luôn nằm trong dải sinh lý $100 - 150\,\text{mV/mm}$.
 
-**Tài liệu:**
-- Khan Academy / Osmosis (YouTube): *"Wound healing"*, *"Skin anatomy"*.
-- Bài tổng quan dễ đọc: Gurtner et al., *"Wound repair and regeneration"*, **Nature** 2008.
-
-**Tự kiểm tra:**
-1. Vì sao vết loét bàn chân của người tiểu đường lâu lành?
-2. Tái biểu mô hóa thuộc giai đoạn nào, và do loại tế bào nào thực hiện?
+### 2.4. Tài liệu bắt buộc đọc ở M2
+1. ⭐ **Zhao et al.**, *"Electrical signals control wound healing through phosphatidylinositol-3-OH kinase-$\gamma$ and PTEN"*, **Nature**, 442, 457–460 (2006).
+2. ⭐ **McCaig et al.**, *"Controlling cell behavior electrically: current views and future potential"*, **Physiological Reviews**, 85(3), 943–978 (2005).
+3. ⭐ **Jiang et al.**, *"Wireless, closed-loop, smart bandage with integrated sensors and stimulators for advanced wound care and accelerated healing"*, **Nature Biotechnology**, 41, 652–662 (2023) — **Bài báo đối chiếu chính của nhóm**.
 
 ---
 
-## M2. Điện trường nội sinh và kích thích điện cho vết thương ⭐
-*Đây là cơ sở khoa học cốt lõi của đề tài.*
+## M3. Điện Hóa Điện Cực, Mô Hình Randles & Chế Tạo Gel Phantom ⭐ *(Tuần 7–12)*
+> **Phụ trách chính:** **Thành** (chủ trì thiết kế tải giả RC và Gel Phantom) + **Hậu** (áp dụng vào mạch cân bằng điện tích).  
+> **Tài liệu gắn liền trong repo:** [docs/phantom-and-bio-experimental-protocol.md](phantom-and-bio-experimental-protocol.md)
 
-**Cần hiểu:**
-- **Pin da (skin battery)**: biểu bì bơm ion $\text{Na}^+$ vào trong, tạo **điện thế xuyên biểu bì khoảng 20–50 mV**.
-- Khi da rách, chỗ vết thương bị "chập mạch". Dòng điện chảy ra phía vết thương, tạo một **điện trường ngang khoảng 100–200 mV/mm** ở mép vết thương.
-- **Electrotaxis / galvanotaxis**: keratinocyte, fibroblast và đại thực bào **di chuyển có hướng theo điện trường**. Năm 2006, Zhao et al. (*Nature*) chứng minh đây là cơ chế phân tử thật (qua các protein PI3K và PTEN).
-- **Mục tiêu của kích thích điện ngoài**: khôi phục hoặc khuếch đại điện trường nội sinh đã mất.
-- **Các dạng kích thích dùng trong lâm sàng**:
+### 3.1. Chuyển đổi dòng Electron $\leftrightarrow$ dòng Ion tại bề mặt điện cực
+Khi áp điện cực kim loại/hydrogel lên vết thương, dòng điện đi qua giao diện theo **2 cơ chế song song**:
+1. **Cơ chế Điện dung (Capacitive / Non-Faradaic — AN TOÀN):**
+   - Các ion trong dịch vết thương tụ tập sát bề mặt điện cực tạo thành **Lớp điện kép Helmholtz (Electrical Double Layer)**, hoạt động như một tụ điện có điện dung rất lớn ($C_{\text{dl}} \approx 10 - 50\,\mu\text{F/cm}^2$).
+   - Không có phản ứng hóa học xảy ra, không làm thay đổi pH của vết thương.
+2. **Cơ chế Faraday (Faradaic — CẦN KIỂM SOÁT CHẶT):**
+   - Khi điện áp tích trên $C_{\text{dl}}$ vượt quá ngưỡng chuyển điện tích (đặc trưng bởi điện trở chuyển điện tích $R_{\text{ct}}$), electron nhảy qua bề mặt gây phản ứng oxy hóa – khử.
+   - Với điện cực **$\text{Ag/AgCl}$**, phản ứng thuận nghịch $\text{Ag} + \text{Cl}^- \rightleftharpoons \text{AgCl} + e^-$ diễn ra êm dịu ở điện thế thấp.
+   - Nhưng nếu dùng xung một chiều (DC) kéo dài hoặc vượt quá **Cửa sổ nước (Water Window, khoảng $\pm 0.8\,\text{V}$ đến $\pm 1.2\,\text{V}$)**, nước bị điện phân sinh khí $\text{H}_2, \text{O}_2$, gốc tự do và làm pH tại điện cực lệch mạnh (gây bỏng hóa học cho mô hạt mới mọc).
 
-| Dạng | Đặc điểm |
-| :--- | :--- |
-| LIDC (dòng một chiều cường độ thấp) | 20–1000 µA, gần với "vi dòng" nhất |
-| HVPC (xung cao áp) | Xung đôi rất ngắn, điện áp 100–200 V, trung bình dòng thấp |
-| Dòng xung hai pha | Cân bằng điện tích, an toàn cho da |
+### 3.2. Mô hình mạch Randles và 3 tải giả chuẩn của nhóm
+Giao diện mỗi điện cực cộng với mô vết thương được mô hình hóa bằng mạch **Randles**:
+$$Z_{\text{Randles}}(\omega) = R_s + \frac{R_p}{1 + j\omega R_p C_p}$$
+Trong đó nhóm đã chuẩn hóa **3 bộ tải giả phần cứng (`Load-1`, `Load-2`, `Load-3`)** và **4 công thức Gel Agar $2\%$ + $\text{NaCl}$ (`Gel-1` $\to$ `Gel-4`)** tại file [docs/phantom-and-bio-experimental-protocol.md](phantom-and-bio-experimental-protocol.md).
 
-- Thông số quan trọng: **mật độ dòng ($\text{A/m}^2$)**, **cực tính** (cực âm hay cực dương đặt ở vết thương), **thời gian mỗi ngày**, **số tuần điều trị**.
-
-**Tài liệu (đọc theo thứ tự):**
-1. ⭐ McCaig et al., *"Controlling cell behavior electrically: current views and future potential"*, **Physiological Reviews** 2005.
-2. ⭐ Zhao et al., *"Electrical signals control wound healing through PI3Kγ and PTEN"*, **Nature** 2006.
-3. ⭐ Kloth, *"Electrical stimulation for wound healing: a review of evidence from in vitro studies, animal experiments, and clinical trials"*, **Int. J. Lower Extremity Wounds** 2005.
-4. ⭐ **Bài mục tiêu**: Jiang et al., *"Wireless, closed-loop, smart bandage with integrated sensors and stimulators for advanced wound care and accelerated healing"*, **Nature Biotechnology** 2023 (nhóm Stanford).
-
-**Tự kiểm tra:**
-1. Giải thích "pin da" bằng sơ đồ mạch tương đương (nguồn áp + điện trở).
-2. Vì sao điện trường ở mép vết thương lớn hơn rất nhiều so với điện trường mà vi dòng từ điện cực tạo ra trong mô sâu?
-3. Bài Stanford đo những đại lượng nào và kích thích ra sao?
+### 3.3. Câu hỏi tự kiểm tra M3
+1. Tại sao dùng xung vuông 2 pha đối xứng (Symmetric Biphasic) ở tần số $50 - 100\,\text{Hz}$ lại giữ cho điện áp trên tụ lớp kép $C_{\text{dl}}$ không vượt ngưỡng cửa sổ nước?
+2. Tại sao khi đo điện trường trên `Gel-1..4`, Thành phải dùng **4 điện cực** ($E_+, E_-$ ở ngoài để bơm dòng; $P_+, P_-$ ở trong để đo $\Delta V$) thay vì lấy luôn điện áp trên 2 điện cực $E_+, E_-$ chia cho khoảng cách?
+   - *Đáp số:* Vì điện áp trên $E_+, E_-$ bao gồm cả sụt áp phân cực rất lớn trên lớp điện kép $C_{\text{dl}}$ của chính 2 điện cực đó; dùng 2 đầu dò $P_+, P_-$ nối vào ngõ vào trở kháng cao của `INA826` (dòng $\approx 0$) sẽ loại bỏ hoàn toàn sụt áp tiếp xúc và đo đúng điện trường thuần túy trong khối gel!
 
 ---
 
-## M3. Điện hóa giao diện điện cực–mô ⭐
-**Cần hiểu:**
-- Trong dây dẫn hạt mang điện là electron, trong mô là ion. **Ở điện cực, hai loại dòng này phải chuyển đổi cho nhau.**
-- **Lớp điện kép (double layer)**: hoạt động như một tụ điện. Ở mức điện tích nhỏ, dòng chỉ nạp/xả tụ này (**cơ chế điện dung**, an toàn).
-- **Phản ứng Faraday**: khi điện áp vượt ngưỡng sẽ xảy ra điện phân nước, sinh khí $\text{H}_2/\text{O}_2$, **đổi pH**, ăn mòn điện cực và **tổn thương mô**.
-- **Cửa sổ nước (water window)** và **giới hạn bơm điện tích (charge injection limit)** của từng vật liệu: Pt, Ag/AgCl, IrOx, PEDOT:PSS, hydrogel dẫn điện.
-- **Mô hình Randles**: $R_{\text{dung dịch}}$ nối tiếp với $(C_{\text{lớp kép}} \parallel R_{\text{chuyển điện tích}})$. Đây là mô hình điện cực đưa vào mô phỏng SPICE.
-- **CPE (constant phase element)** mô tả lớp kép chính xác hơn tụ lý tưởng.
-- **Cân bằng điện tích**: pha dương và pha âm phải có điện tích bằng nhau, cộng thêm tụ chặn DC và chập xả điện cực sau mỗi xung.
+## M4. Đo Trở Kháng Sinh Học (Bioimpedance) & Giải Điều Chế Đồng Bộ I/Q ⭐ *(Tuần 7–13)*
+> **Phụ trách chính:** **Khang** (thuật toán I/Q trên MCU) + **Thành** (mạch AFE dùng Khuếch đại đo lường `INA826` / `AD5933`).  
+> **Tài liệu gắn liền trong repo:** [docs/closed-loop-algorithm-and-firmware.md](closed-loop-algorithm-and-firmware.md)
 
-**Tài liệu:**
-1. ⭐ Merrill, Bikson & Jefferys, *"Electrical stimulation of excitable tissue: design of efficacious and safe protocols"*, **J. Neurosci. Methods** 2005.
-2. ☆ Cogan, *"Neural stimulation and recording electrodes"*, **Annu. Rev. Biomed. Eng.** 2008.
+### 4.1. Tại sao chọn tần số đo $f_0 = 1\,\text{kHz}$ (hoặc $1 - 10\,\text{kHz}$)?
+- Nếu đo ở tần số quá thấp ($< 20\,\text{Hz}$): dung kháng lớp điện kép của điện cực $X_{\text{dl}} = -\frac{1}{2\pi f C_{\text{dl}}}$ rất lớn, che lấp mất điện trở của chính vết thương $R_{\text{wound}}$.
+- Tại $f_0 = 1\,\text{kHz}$ đến $10\,\text{kHz}$: tụ lớp kép $C_{\text{dl}}$ và tụ chặn DC ($4.7\,\mu\text{F}$, dung kháng chỉ $\sim 33\,\Omega$ tại $1\,\text{kHz}$) gần như nối tắt, giúp phép đo phản ánh trực tiếp **điện trở dịch ngoại bào và trạng thái biểu mô của vùng vết thương**.
 
-**Tự kiểm tra:**
-1. Vì sao xung một pha (monophasic) kéo dài gây hại cho da và điện cực?
-2. Vẽ mô hình Randles. Khi tần số tiến tới 0 và tới vô cùng, trở kháng của mô hình này tiến tới đâu?
-3. Điện cực Ag/AgCl khác điện cực Pt như thế nào về cơ chế dẫn dòng?
+### 4.2. Nguyên lý Giải điều chế đồng bộ I/Q (Digital Lock-In Detection)
+Khi bơm một dòng sin biên độ nhỏ không gây kích thích $i(t) = I_{\text{test}} \sin(\omega_0 t)$ (với $I_{\text{test}} = 10\,\mu\text{A}$), điện áp thu được sau khuếch đại vi sai `INA826` (hệ số khuếch đại $G$) là:
+$$v(t) = G \cdot I_{\text{test}} |Z| \sin(\omega_0 t + \phi) + n(t)$$
+Trong đó $n(t)$ là nhiễu $50\,\text{Hz}$ từ điện lưới và nhiễu nhiệt. Khi nhân $v[n]$ với $\sin(\omega_0 t_n)$ và $\cos(\omega_0 t_n)$ rồi lấy trung bình trên đúng $M$ chu kỳ nguyên ($M = 10$ chu kỳ, $16$ mẫu/chu kỳ $\to N = 160$ mẫu tại $f_s = 16\,\text{kHz}$):
+$$I_{\text{comp}} = \frac{2}{N} \sum_{n=0}^{N-1} v[n] \sin\left(\frac{2\pi n}{16}\right) = G \cdot I_{\text{test}} |Z| \cos\phi = G \cdot I_{\text{test}} \cdot R_{\text{meas}}$$
+$$Q_{\text{comp}} = \frac{2}{N} \sum_{n=0}^{N-1} v[n] \cos\left(\frac{2\pi n}{16}\right) = G \cdot I_{\text{test}} |Z| \sin\phi = G \cdot I_{\text{test}} \cdot X_{\text{meas}}$$
+- **Ưu điểm tuyệt đối:** Bộ lọc trung bình trên số nguyên chu kỳ triệt tiêu cực mạnh nhiễu $50\,\text{Hz}$ và nhiễu tần số khác mà chỉ tốn vài chục dòng code C trên `ESP32-C3` / `STM32`!
 
----
-
-## M4. Trở kháng sinh học (Bioimpedance) ⭐
-**Cần hiểu:**
-- **Tính chất điện của mô**: ở tần số thấp, dòng chỉ chảy vòng qua dịch ngoài tế bào (màng tế bào chặn lại). Ở tần số cao, dòng xuyên qua màng tế bào.
-- **Mô hình Cole**: $R_\infty, R_0, \tau, \alpha$. Trên giản đồ Nyquist là một cung tròn bị dẹt.
-- **Đo 2 điện cực và 4 điện cực**: vì sao cấu hình 4 điện cực loại bỏ được trở kháng tiếp xúc.
-- **Kỹ thuật đo**:
-  - Kích thích bằng sóng sin dòng, giữ dòng nhỏ để an toàn (thường $\le$ vài chục µA).
-  - **Giải điều chế I/Q** (đồng bộ / lock-in) để tách biên độ và pha.
-  - **Phổ trở kháng** (EIS): quét nhiều tần số.
-- **Ý nghĩa với vết thương**: mô lành/biểu mô hóa và mô nhiễm trùng/phù nề có trở kháng khác nhau.
-
-**Tài liệu:**
-1. ⭐ Sách: Grimnes & Martinsen, ***Bioimpedance and Bioelectricity Basics*** (Academic Press) — các chương 1–3 và 7.
-2. ☆ Datasheet và app note của **AD5940/AD5941** (Analog Devices).
-
-**Tự kiểm tra:**
-1. Vì sao trở kháng mô giảm khi tần số tăng?
-2. Vẽ sơ đồ khối giải điều chế I/Q để đo biên độ và pha của một trở kháng chưa biết.
+### 4.3. Câu hỏi tự kiểm tra M4
+1. Nếu tín hiệu thu về $v(t)$ có cộng thêm mức dịch một chiều $V_{\text{offset}} = 1.65\,\text{V}$ (để đưa vào ADC $0 - 3.3\,\text{V}$ của MCU), mức $1.65\,\text{V}$ này có làm sai kết quả tính $I_{\text{comp}}$ và $Q_{\text{comp}}$ khi lấy tổng trên đúng 10 chu kỳ nguyên không? Tại sao?
+   - *Đáp số:* **Không làm sai**, vì tổng của hàm $\sin$ và $\cos$ trên một số nguyên lần chu kỳ luôn bằng $0$: $\sum_{n=0}^{15} 1.65 \cdot \sin(2\pi n / 16) = 0$.
 
 ---
 
-## M5. Mạch tạo kích thích dòng ⭐
-**Cần hiểu:**
-- **Nguồn dòng**: dòng lý tưởng và dòng thực tế, **trở kháng ra** $R_{\text{out}}$, **điện áp tuân thủ** (compliance voltage).
-- Các topo: Howland, op-amp + MOSFET + $R_{\text{sense}}$, **gương dòng cascode** (topo dùng trên chip).
-- **DAC dòng**: loại trọng số nhị phân và loại thermometer; khái niệm INL/DNL; ảnh hưởng của sai lệch (mismatch) giữa các transistor.
-- **Tạo xung hai pha**: dùng cầu H, hoặc cặp nguồn đẩy dòng + nguồn hút dòng.
-- **Các kỹ thuật cân bằng điện tích**: chập điện cực sau xung, dùng tụ chặn, đo điện áp dư rồi bù vào xung sau (closed-loop charge balancing).
-- **Theo dõi điện áp điện cực** để phát hiện hở mạch hoặc đoản mạch.
+## M5. Thiết Kế Mạch Nguồn Vi Dòng 2 Pha, Cầu H 12V & Bảo Vệ Phần Cứng ⭐ *(Tuần 7–13)*
+> **Phụ trách chính:** **Hậu** (thiết kế LTspice, lắp breadboard và vẽ PCB).  
+> **Tài liệu gắn liền trong repo:** [docs/hardware-architecture-and-bom.md](hardware-architecture-and-bom.md)
 
-**Tài liệu:**
-1. ⭐ Razavi, ***Design of Analog CMOS Integrated Circuits***, các chương về gương dòng và op-amp.
-2. ⭐ Tìm trên IEEE Xplore với từ khóa: `"biphasic current stimulator" charge balancing`, `"wound healing" stimulator IC`.
+### 5.1. Kiến trúc Nguồn dòng High-Side VCCS (Tránh bẫy lệch trở của mạch Howland)
+Thay vì dùng cầu 4 điện trở Howland đòi hỏi điện trở khớp $0.01\%$ đắt tiền, Hậu sử dụng cấu trúc **Op-amp hồi tiếp âm điều khiển cực Gate của P-MOSFET (`BSS84`) qua 1 điện trở chuẩn duy nhất $R_{\text{sense}} = 5.0\,\text{k}\Omega$ ($0.1\%$)** đặt ở phía nguồn cao áp $V_{\text{HV}} = 12\,\text{V}$:
+- Điện trở ra của nguồn dòng ở tần số thấp:
+  $$R_{\text{out}} \approx r_{ds,\text{BSS84}} \cdot (1 + A_{\text{OL}} \cdot g_m R_{\text{sense}}) > 10\,\text{M}\Omega$$
+- Vì $R_{\text{out}} > 10\,\text{M}\Omega \gg Z_{\text{load}} (\le 25\,\text{k}\Omega)$, dòng điện bơm ra tải $I_{\text{stim}} = \frac{V_{\text{set}}}{R_{\text{sense}}}$ giữ phẳng tuyệt đối (sai số $< 0.5\%$) trên toàn dải tải từ $500\,\Omega$ đến $25\,\text{k}\Omega$.
 
-**Tự kiểm tra:**
-1. $R_{\text{out}}$ của một gương dòng cascode xấp xỉ bằng bao nhiêu (theo $g_m$ và $r_o$)?
-2. Với dòng $100\,\mu\text{A}$ và tải $30\,\text{k}\Omega$, cần điện áp tuân thủ tối thiểu bao nhiêu? Nếu nguồn là $3.3\,\text{V}$ thì phải làm gì?
-
-**Thực hành:** mô phỏng LTspice nguồn dòng hai pha + mô hình Randles (M3) + mô hình da, và quan sát điện áp dư trên điện cực.
-
----
-
-## M6. IC analog công suất thấp và năng lượng không dây ☆ (năm 3)
-**Cần hiểu:**
-- **Nguồn tham chiếu**: bandgap, nguồn dòng PTAT; transistor ở **vùng dưới ngưỡng (subthreshold)** để tiết kiệm năng lượng.
-- **Op-amp/OTA công suất thấp**, bộ so sánh, **ADC SAR** (để đọc kết quả đo trở kháng).
-- **Năng lượng không dây qua NFC (13.56 MHz)**:
-  - Ghép cảm ứng giữa hai cuộn dây, mạch cộng hưởng LC, hệ số ghép $k$.
-  - **Mạch chỉnh lưu** trên chip, **LDO**, điều chế tải để gửi dữ liệu ngược về điện thoại.
-  - Các chuẩn ISO 14443 / ISO 15693.
-- **Khối số**: máy trạng thái (FSM) tạo xung, thanh ghi điều khiển, viết bằng Verilog.
-- **Quy trình thiết kế IC mã nguồn mở**: Xschem → ngspice → Magic/KLayout → DRC/LVS → PEX, dùng PDK SKY130 hoặc GF180.
-
-**Tài liệu:**
-1. ⭐ Sarpeshkar, ***Ultra Low Power Bioelectronics*** (Cambridge).
-2. ⭐ Baker, ***CMOS Circuit Design, Layout, and Simulation***.
-3. ☆ Khóa học trực tuyến: *Zero to ASIC*, tài liệu Tiny Tapeout, bài giảng Razavi trên YouTube.
+### 5.2. Ba điều kiện sống còn khi Hậu vẽ Schematic & PCB
+1. **Điện áp chịu đựng của Cầu H:** Nguồn kích thích là $V_{\text{HV}} = 12\,\text{V}$, do đó IC chuyển mạch tạo cầu H bắt buộc phải dùng dòng CMOS $18\,\text{V}$ như **`CD4053BM`** hoặc **`DG419`** (tuyệt đối không dùng switch $5\,\text{V}$).
+2. **Ba tầng bảo vệ an toàn nối tiếp tại ngõ ra điện cực:**
+   - Tầng 1: Giới hạn dòng cứng độc lập bằng phần cứng ($< 1\,\text{mA}$).
+   - Tầng 2: Tụ gốm chặn DC $C_{\text{block}} = 4.7\,\mu\text{F} / 25\,\text{V}$ (X7R) mắc nối tiếp.
+   - Tầng 3: Khóa chập xả điện tích dư qua trở $1\,\text{k}\Omega$ sau mỗi xung 2 pha.
+3. **Cách ly trong lúc đo trở kháng:** Khi Khang chuyển sang trạng thái `MEASURE_Z`, cầu H kích thích của Hậu phải mở hoàn toàn (High-Z) để không làm rò dòng đo $10\,\mu\text{A}$ của Thành.
 
 ---
 
-## M7. An toàn, tiêu chuẩn và phương pháp nghiên cứu ⭐ (học song song)
-**Cần hiểu:**
-- **Tiêu chuẩn**:
-  - IEC 60601-1: an toàn điện chung cho thiết bị y tế.
-  - IEC 60601-2-10: riêng cho máy kích thích thần kinh–cơ.
-  - ISO 10993: tương thích sinh học của vật liệu tiếp xúc da.
-- **Đạo đức nghiên cứu**: thử nghiệm trên người hoặc động vật bắt buộc phải qua hội đồng đạo đức. Sinh viên làm việc với **tải giả** và **mô hình gel/phantom**.
-- **Phương pháp nghiên cứu**: đọc bài báo theo thứ tự abstract → hình → kết luận → phương pháp; viết tổng quan tài liệu; xác định khoảng trống nghiên cứu (research gap); thống kê cơ bản (trung bình, độ lệch chuẩn, sai số đo, kiểm định t).
-- **Công cụ**: Zotero, Google Scholar, IEEE Xplore.
+## M6. Điều Khiển Vòng Kín, Thiết Kế PCB KiCad & Kiểm Chứng Thống Kê ⭐ *(Tuần 14–26)*
+> **Phụ trách:** Cả 3 thành viên cùng ghép nối phần cứng – firmware – thực nghiệm.
+
+### 6.1. Quy tắc thiết kế Layout PCB 2 lớp hỗn hợp (Mixed-Signal PCB) cho Hậu & Thành
+1. **Phân vùng rõ rệt trên bo $30 \times 40\,\text{mm}$:**
+   - Vùng 1 (Digital & RF): `ESP32-C3` / `STM32`, anten BLE / cuộn NFC `ST25DV`.
+   - Vùng 2 (Nguồn xung): IC Boost `MT3608` + cuộn cảm $22\,\mu\text{H}$ + tụ lọc (đặt xa ngõ vào khuếch đại vi sai `INA826`).
+   - Vùng 3 (Analog chính xác): `TLV9062`, `INA826`, điện trở chuẩn $R_{\text{sense}} = 5.0\,\text{k}\Omega$ ($0.1\%$).
+2. **Đi dây Kelvin / Vi sai:** Hai đường tín hiệu từ đầu dò điện cực vào chân `IN+` và `IN-` của `INA826` phải đi song song, sát nhau và có độ dài bằng nhau để triệt tiêu nhiễu đồng pha $50\,\text{Hz}$ (CMRR cao).
+3. **Tụ decoupling:** Đặt tụ gốm $100\,\text{nF}$ (0805) sát nhất có thể ($< 2\,\text{mm}$) ngay tại chân cấp nguồn của mọi IC (`TLV9062`, `CD4053B`, `INA826`, `MCU`).
+
+### 6.2. Phương pháp đánh giá thống kê kết quả đo Gel Phantom (Tuần 24–26)
+Trên mỗi mẫu trong 4 mẫu `Gel-1..4`, nhóm đo lặp lại độc lập $n = 3$ lần cho cả hai chế độ **Open-loop ($I = 150\,\mu\text{A}$)** và **Closed-loop ($E_{\text{target}} = 120\,\text{mV/mm}$)**:
+- Tính trung bình mẫu $\bar{E}$ và độ lệch chuẩn mẫu $s_E$:
+  $$\bar{E} = \frac{1}{n}\sum_{i=1}^n E_i, \qquad s_E = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (E_i - \bar{E})^2}$$
+- Tính **Sai số phần trăm tuyệt đối trung bình (MAPE)** so với mục tiêu $E_{\text{target}} = 120\,\text{mV/mm}$:
+  $$\text{MAPE}\,(\%) = \frac{100\%}{4} \sum_{m=1}^{4} \frac{|\bar{E}_{\text{Gel-}m} - E_{\text{target}}|}{E_{\text{target}}}$$
+- **Tiêu chí chứng minh thành công của đề tài:**
+  - Chế độ Open-loop có $\text{MAPE} > 100\%$ (do $E$ vọt từ $\sim 40\,\text{mV/mm}$ lên $> 400\,\text{mV/mm}$).
+  - Chế độ Closed-loop của nhóm giữ $\text{MAPE} < 12\%$ trên toàn bộ 4 trạng thái vết thương giả lập!
 
 ---
 
-## Kế hoạch 12 tuần đầu tiên (gợi ý)
-
-| Tuần | Học | Làm |
-| :--- | :--- | :--- |
-| 1–2 | M1: da, lành vết thương | Tóm tắt 1 trang bằng lời của bản thân |
-| 3–4 | M2: McCaig, Zhao 2006 | Đọc bài Stanford 2023, vẽ lại sơ đồ khối hệ thống |
-| 5–7 | M3: Merrill 2005 | Mô phỏng mô hình Randles trong LTspice |
-| 8–10 | M4: Grimnes chương 1–3 | Mô phỏng đo trở kháng bằng I/Q trong LTspice/Python |
-| 11–12 | M5: nguồn dòng | Lắp mạch nguồn dòng 2 pha trên breadboard + tải giả |
+## M7 (Tùy Chọn Sau Tháng 05/2027). Mở Rộng Lên Thiết Kế Vi Mạch CMOS (Năm 3–4) ☆
+> **Lưu ý:** Phần này **không nằm trong áp lực tiến độ 28 tuần nộp NCKH tháng 05/2027**. Sau khi nộp xong NCKH và bước vào năm 3 chuyên ngành Thiết kế Vi mạch, **Hậu** và **Thành** có thể lấy chính khối **Nguồn dòng 2 pha + Cân bằng điện tích** của đề tài này để thiết kế ở mức transistor làm Đồ án Môn học / Đồ án Tốt nghiệp:
+- Thay mạch VCCS rời bằng **Current DAC 6–8 bit dùng gương dòng Wide-Swing Cascode** trên công nghệ mã nguồn mở **SkyWater SKY130** hoặc **GlobalFoundries GF180MCU** (sử dụng transistor chịu áp $5\,\text{V}$ / LDMOS).
+- Công cụ sử dụng: **Xschem** (vẽ schematic transistor) $\to$ **ngspice** (mô phỏng PVT corners & Monte Carlo mismatch) $\to$ **Magic / KLayout** (vẽ layout & kiểm tra DRC/LVS).
+- Tài liệu gối đầu giường cho giai đoạn năm 3–4:
+  1. Behzad Razavi, ***Design of Analog CMOS Integrated Circuits*** (McGraw-Hill).
+  2. Rahul Sarpeshkar, ***Ultra Low Power Bioelectronics*** (Cambridge University Press).
