@@ -1,0 +1,25 @@
+# LTspice & SPICE simulation outputs
+*.raw
+*.log
+*.op.raw
+*.fft
+*.plt
+
+# KiCad
+*-backups/
+*.kicad_prl
+*.lck
+_autosave-*
+
+# Open-source ASIC tools
+*.vcd
+*.fst
+*.vvp
+__pycache__/
+*.pyc
+.venv/
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
