@@ -1,5 +1,5 @@
 # Giáo Trình Lý Thuyết Trọng Tâm: Băng Dán Vết Thương Thông Minh Dùng Vi Dòng
-*Biên soạn riêng cho nhóm NCKH HCMUT (11/2026 – 05/2027): **Hậu** (Vi mạch) – **Thành** (Vi mạch + Giải QG Sinh học) – **Khang** (IoT)*
+*Biên soạn riêng cho nhóm NCKH HCMUT (11/2026 – 05/2027): **Hậu** – **Thành** – **Khang***
 
 ---
 
@@ -25,7 +25,7 @@ flowchart TD
 | Module | Ai đi sâu (Chủ trì giảng lại 15 phút) | Ai học nắm nguyên lý (Để ghép hệ thống) | Môn học liên quan tại HCMUT |
 | :--- | :--- | :--- | :--- |
 | **M0. Nền tảng mạch RC & Phức** | **Hậu & Thành** | **Khang** | Giải tích mạch, Tín hiệu & Hệ thống |
-| **M1. Sinh học da & Vết thương** | **Thành** *(Giải QG Sinh học)* | **Hậu, Khang** *(chỉ học bản dịch sang mạch điện)* | Tự học có hướng dẫn của Thành |
+| **M1. Sinh học da & Vết thương** | **Thành** | **Hậu, Khang** *(chỉ học bản dịch sang mạch điện)* | Tự học có hướng dẫn của Thành |
 | **M2. Pin da & Electrotaxis** | **Thành** (cơ chế) + **Hậu/Khang** (tính $E, J$) | Cả 3 cùng nắm chắc để bảo vệ đề cương | Vật lý điện từ + Sinh lý học |
 | **M3. Điện hóa & Gel Phantom** | **Thành** | **Hậu** (để chọn tụ chặn DC), **Khang** (để hiểu ngưỡng lỗi) | Hóa đại cương + Vật liệu điện tử |
 | **M4. Đo trở kháng & Thuật toán I/Q** | **Khang** (code I/Q) + **Thành** (mạch `INA826`) | **Hậu** (để phối hợp đóng/ngắt cầu H khi đo) | Xử lý tín hiệu số, Đo lường điện tử |

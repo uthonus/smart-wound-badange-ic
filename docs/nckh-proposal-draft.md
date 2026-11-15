@@ -8,9 +8,9 @@
 - **Tên đề tài (Tiếng Việt):** Thiết kế hệ thống băng dán thông minh kích thích vi dòng vòng kín, tự động ổn định điện trường dựa trên phép đo trở kháng thời gian thực định hướng hỗ trợ lành vết thương mạn tính.
 - **Tên đề tài (Tiếng Anh):** *Design of a Closed-Loop Microcurrent Smart Bandage System with Real-Time Impedance-Based Electric Field Regulation for Chronic Wound Healing Applications.*
 - **Nhóm sinh viên thực hiện:**
-  1. **Hậu** — Ngành Thiết kế Vi mạch (Phụ trách mạch tương tự, nguồn dòng hai pha, thiết kế PCB).
-  2. **Thành** — Ngành Thiết kế Vi mạch, Cựu HSG Quốc gia Sinh học (Phụ trách mô hình điện sinh học, giao diện điện cực, đo lường AFE và thực nghiệm Gel Phantom).
-  3. **Khang** — Ngành Kỹ thuật Máy tính / IoT (Phụ trách vi điều khiển, thuật toán vòng kín, giao tiếp không dây NFC/BLE và phần mềm giám sát).
+  1. **Hậu** — Phụ trách mạch tương tự, nguồn dòng hai pha, thiết kế PCB.
+  2. **Thành** — Phụ trách mô hình điện sinh học, giao diện điện cực, đo lường AFE và thực nghiệm Gel Phantom.
+  3. **Khang** — Phụ trách vi điều khiển, thuật toán vòng kín, giao tiếp không dây NFC/BLE và phần mềm giám sát.
 - **Thời gian thực hiện:** 6,5 tháng (Từ tháng 11/2026 đến tháng 05/2027).
 
 ---

@@ -1,6 +1,6 @@
 # Đặc Tả Phần Cứng & Danh Mục Linh Kiện (Hardware Architecture & BOM)
 
-> **Phụ trách chính:** **Hậu** (Thiết kế Vi mạch — Mạch kích thích 2 pha, Nguồn, Bảo vệ & PCB KiCad)  
+> **Phụ trách chính:** **Hậu** (Mạch kích thích 2 pha, Nguồn, Bảo vệ & PCB KiCad)  
 > **Phối hợp:** **Thành** (Mô hình tải, AFE đo trở kháng) & **Khang** (Giao tiếp MCU, NFC/BLE)
 
 ---

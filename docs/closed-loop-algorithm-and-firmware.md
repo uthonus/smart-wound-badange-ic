@@ -1,6 +1,6 @@
 # Thuật Toán Điều Khiển Vòng Kín & Kiến Trúc Firmware
 
-> **Phụ trách chính:** **Khang** (IoT — MCU Firmware, Giải điều chế I/Q, Thuật toán giữ ổn định điện trường & Dashboard)  
+> **Phụ trách chính:** **Khang** (MCU Firmware, Giải điều chế I/Q, Thuật toán giữ ổn định điện trường & Dashboard)  
 > **Phối hợp:** **Thành** (Hiệu chuẩn mô hình trở kháng $\leftrightarrow$ điện trường) & **Hậu** (Giao tiếp điều khiển DAC & Cầu H)
 
 ---

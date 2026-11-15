@@ -6,11 +6,11 @@
 
 ## 1. Đội Hình Nghiên Cứu (Phân Công Theo Thế Mạnh)
 
-| Thành viên | Chuyên ngành & Thế mạnh | Vai trò & Khối phụ trách chính | Tài liệu kỹ thuật trực tiếp |
-| :--- | :--- | :--- | :--- |
-| **Hậu** *(Vai C)* | **Thiết kế Vi mạch** (HCMUT) | **Mạch Kích Thích & PCB:** Nguồn dòng High-Side VCCS ($20-400\,\mu\text{A}$, nguồn $12\,\text{V}$), Cầu H chịu áp cao (`CD4053B`), cân bằng điện tích, giới hạn dòng phần cứng $<1\,\text{mA}$, quản lý nguồn & vẽ Schematic/Layout PCB KiCad. | [docs/hardware-architecture-and-bom.md](docs/hardware-architecture-and-bom.md) |
-| **Thành** *(Vai A)* | **Thiết kế Vi mạch** + **Giải QG Sinh học** | **Sinh học – Điện hóa, Đo lường & Gel Phantom:** Cơ chế phân tử *electrotaxis* ($\text{PI3K}\gamma/\text{PTEN}$), mô hình Randles/Cole, mạch AFE đo trở kháng (`INA826`), chế tạo 3 tải giả RC & 4 mẫu Gel Agar–$\text{NaCl}$, bàn đo 4 điện cực ($E = \Delta V/d$) & giao thức In-vitro. | [docs/phantom-and-bio-experimental-protocol.md](docs/phantom-and-bio-experimental-protocol.md) |
-| **Khang** *(Vai B)* | **IoT / Kỹ thuật Máy tính** (HCMUT) | **MCU Firmware, Vòng kín & IoT:** Lập trình MCU (`ESP32-C3`/`STM32`), giải điều chế đồng bộ I/Q tại $1\,\text{kHz}$, thuật toán vòng kín giữ điện trường ổn định, phát hiện bong điện cực, giao tiếp NFC (`ST25DV`)/BLE & phần mềm Dashboard Python. | [docs/closed-loop-algorithm-and-firmware.md](docs/closed-loop-algorithm-and-firmware.md) |
+| Thành viên | Khối phụ trách chính | Tài liệu kỹ thuật trực tiếp |
+| :--- | :--- | :--- |
+| **Hậu** | **Mạch Kích Thích & PCB:** Nguồn dòng High-Side VCCS ($20-400\,\mu\text{A}$, nguồn $12\,\text{V}$), Cầu H chịu áp cao (`CD4053B`), cân bằng điện tích, giới hạn dòng phần cứng $<1\,\text{mA}$, quản lý nguồn & vẽ Schematic/Layout PCB KiCad. | [docs/hardware-architecture-and-bom.md](docs/hardware-architecture-and-bom.md) |
+| **Thành** | **Sinh học – Điện hóa, Đo lường & Gel Phantom:** Cơ chế phân tử *electrotaxis* ($\text{PI3K}\gamma/\text{PTEN}$), mô hình Randles/Cole, mạch AFE đo trở kháng (`INA826`), chế tạo 3 tải giả RC & 4 mẫu Gel Agar–$\text{NaCl}$, bàn đo 4 điện cực ($E = \Delta V/d$) & giao thức In-vitro. | [docs/phantom-and-bio-experimental-protocol.md](docs/phantom-and-bio-experimental-protocol.md) |
+| **Khang** | **MCU Firmware, Vòng kín & IoT:** Lập trình MCU (`ESP32-C3`/`STM32`), giải điều chế đồng bộ I/Q tại $1\,\text{kHz}$, thuật toán vòng kín giữ điện trường ổn định, phát hiện bong điện cực, giao tiếp NFC (`ST25DV`)/BLE & phần mềm Dashboard Python. | [docs/closed-loop-algorithm-and-firmware.md](docs/closed-loop-algorithm-and-firmware.md) |
 
 ---
 

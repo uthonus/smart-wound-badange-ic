@@ -1,6 +1,6 @@
 # Quy Trình Thực Nghiệm Trên Gel Phantom & Định Hướng Sinh Học
 
-> **Phụ trách chính:** **Thành** (Thiết kế Vi mạch & Giải Quốc gia Sinh học — Tải giả RC, Gel Phantom, Đo kiểm chứng điện trường & Thiết kế giao thức Sinh học)  
+> **Phụ trách chính:** **Thành** (Tải giả RC, Gel Phantom, Đo kiểm chứng điện trường & Thiết kế giao thức Sinh học)  
 > **Phối hợp:** **Hậu** (Đo dạng sóng bằng Oscilloscope) & **Khang** (Thu thập log dữ liệu CSV tự động)
 
 ---
@@ -74,9 +74,9 @@ Mỗi tải giả gồm một nhánh nối tiếp $R_s$ (trở kháng dịch mô
 
 ---
 
-## 5. Lợi Thế Đặc Biệt Của Thành (HSG Quốc Gia Sinh Học): Thiết Kế Phần Mở Rộng Sinh Học
+## 5. Thiết Kế Phần Mở Rộng Sinh Học (Cơ Chế Phân Tử & Giao Thức In-Vitro)
 
-Nhờ nền tảng Sinh học chuyên sâu của **Thành**, báo cáo NCKH của nhóm sẽ vượt trội hơn các nhóm thuần Điện – Điện tử ở 2 điểm:
+Báo cáo NCKH của nhóm được bổ sung thêm 2 nội dung chuyên sâu về sinh học thực nghiệm (do **Thành** phụ trách):
 1. **Giải thích sâu cơ chế phân tử trong Chương 1:** Trình bày chuẩn xác đường truyền tín hiệu nội bào **PI3K$\gamma$ / PIP3 / PTEN**, sự phân cực thụ thể màng (EGFR, Integrin) và động học trùng hợp sợi **F-actin** ở mép trước tế bào sừng (keratinocyte) dưới điện trường $100-200\,\text{mV/mm}$.
 2. **Xây dựng Giao thức Thử nghiệm In-Vitro Chuẩn (Đề xuất cho giai đoạn mở rộng với Phòng Lab Sinh học):**
    - Thiết kế buồng **Scratch Assay (Wound Healing Assay)** trên đĩa nuôi cấy 6 giếng với dòng tế bào nguyên bào sợi chuột (**NIH/3T3**) hoặc tế bào sừng người (**HaCaT**), sử dụng cầu muối Agarose $2\%$ để cách ly sản phẩm điện phân tại điện cực khỏi môi trường nuôi cấy DMEM.
